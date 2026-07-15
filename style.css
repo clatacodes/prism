@@ -193,19 +193,23 @@ textarea::placeholder{ color:#b7bcc2; font-size:17px; }
 
 /* ---- sequence readout ---- */
 .sequence{
+  position:relative;
   display:flex;
-  align-items:center;
+  align-items:flex-start;
   gap:12px;
   border:1.5px solid var(--line);
   border-radius:var(--radius);
-  padding:14px 16px;
+  padding:22px 60px 22px 22px;
   background:#fff;
+  min-height:140px;
 }
 .sequence .seq-text{
   flex:1;
-  font-size:20px;
+  font-size:30px;
+  line-height:1.5;
   letter-spacing:.02em;
-  word-break:break-all;
+  word-break:break-word;
+  white-space:pre-wrap;
   min-height:24px;
 }
 .sequence .seq-text.empty{
@@ -215,23 +219,55 @@ textarea::placeholder{ color:#b7bcc2; font-size:17px; }
   text-transform:uppercase;
   letter-spacing:.06em;
 }
-button.copy{
-  font-family:var(--font-mono);
-  font-size:12px;
-  letter-spacing:.06em;
-  text-transform:uppercase;
-  border:1.5px solid var(--ink);
-  background:var(--ink);
-  color:var(--paper);
-  border-radius:8px;
-  padding:9px 14px;
+
+.copy-icon-btn{
+  position:absolute;
+  top:16px;
+  right:16px;
+  width:36px;
+  height:36px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:1.5px solid var(--line);
+  background:#fff;
+  color:var(--ink-soft);
+  border-radius:9px;
   cursor:pointer;
-  white-space:nowrap;
-  transition:opacity .15s ease;
+  padding:0;
+  transition:background .15s ease, color .15s ease, border-color .15s ease;
 }
-button.copy:hover{ opacity:.82; }
-button.copy:active{ opacity:.65; }
-button.copy:disabled{ opacity:.4; cursor:default; }
+.copy-icon-btn:hover:not(:disabled){
+  background:var(--paper);
+  color:var(--ink);
+  border-color:var(--glass-line);
+}
+.copy-icon-btn:active:not(:disabled){ transform:scale(.94); }
+.copy-icon-btn:disabled{ opacity:.35; cursor:default; }
+
+.copy-icon-btn .icon{
+  width:18px;
+  height:18px;
+  position:absolute;
+  transition:opacity .15s ease, transform .15s ease;
+}
+.copy-icon-btn .icon-check{
+  opacity:0;
+  transform:scale(.6);
+  color:var(--green);
+}
+.copy-icon-btn .icon-copy{
+  opacity:1;
+  transform:scale(1);
+}
+.copy-icon-btn.copied .icon-copy{
+  opacity:0;
+  transform:scale(.6);
+}
+.copy-icon-btn.copied .icon-check{
+  opacity:1;
+  transform:scale(1);
+}
 
 .status{
   font-family:var(--font-mono);
