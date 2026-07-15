@@ -155,12 +155,16 @@
     debounceTimer = setTimeout(render, 90);
   });
 
+  let copyResetTimer = null;
   copyBtn.addEventListener('click', async () => {
     const text = seqText.textContent;
     if (!text) return;
     try {
       await navigator.clipboard.writeText(text);
       statusEl.textContent = 'Copied to clipboard.';
+      copyBtn.classList.add('copied');
+      clearTimeout(copyResetTimer);
+      copyResetTimer = setTimeout(() => copyBtn.classList.remove('copied'), 1500);
     } catch(e){
       statusEl.textContent = 'Could not copy — select the text manually.';
     }
