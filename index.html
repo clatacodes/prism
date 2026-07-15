@@ -1,7 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
+<head><!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Prism — sort emoji by color</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Emoji spectrum sorter</p>
+  <h1>Prism</h1>
+  <p class="sub">Paste any emoji. Each one gets rendered, its actual pixel color measured, and the set reordered red&nbsp;→&nbsp;violet — like light through glass.</p>
+
+  <div class="prism-row" aria-hidden="true">
+    <svg viewBox="0 0 900 96" preserveAspectRatio="none">
+      <polygon points="0,48 120,20 120,76" fill="var(--glass)" stroke="var(--glass-line)" stroke-width="1.5"/>
+      <line x1="0" y1="48" x2="118" y2="48" stroke="#fff" stroke-width="3"/>
+      <line x1="0" y1="48" x2="118" y2="48" stroke="#d8dade" stroke-width="1"/>
+      <g stroke-width="2.4" stroke-linecap="round" opacity="0.9">
+        <line x1="120" y1="44" x2="900" y2="6"  stroke="var(--red)"/>
+        <line x1="120" y1="45" x2="900" y2="18" stroke="var(--orange)"/>
+        <line x1="120" y1="46" x2="900" y2="30" stroke="var(--yellow)"/>
+        <line x1="120" y1="47" x2="900" y2="46" stroke="var(--green)"/>
+        <line x1="120" y1="48" x2="900" y2="62" stroke="var(--teal)"/>
+        <line x1="120" y1="49" x2="900" y2="76" stroke="var(--blue)"/>
+        <line x1="120" y1="50" x2="900" y2="88" stroke="var(--indigo)"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="field">
+    <label class="field-label" for="emoji-input">Your emoji</label>
+    <textarea id="emoji-input" placeholder="🍎 🍊 🍋 🍏 🫐 🍇 🍓 ⚫ ⚪ 🔴 🟠 🟡 🟢 🔵 🟣" autofocus></textarea>
+  </div>
+  <p class="hint">Renders each character with your system's color emoji font, so results depend on <b>your device</b> — the same emoji can render slightly differently on iOS, Android, or desktop.</p>
+
+  <div class="section-label">
+    <span>Sorted by hue</span>
+    <span class="count" id="count-label">0 emoji</span>
+  </div>
+
+  <div class="track-outer">
+    <div class="spectrum-key" aria-hidden="true"></div>
+    <div class="track" id="track"></div>
+  </div>
+
+  <div class="neutral-shelf" id="neutral-shelf">
+    <span class="shelf-label">No strong color</span>
+  </div>
+
+  <div class="section-label"><span>Sequence</span></div>
+  <div class="sequence">
+    <div class="seq-text empty" id="seq-text">nothing sorted yet</div>
+    <button class="copy-icon-btn" id="copy-btn" disabled aria-label="Copy sequence" title="Copy">
+      <svg class="icon icon-copy" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="7" y="7" width="10" height="10" rx="2" stroke="currentColor" stroke-width="1.6"/>
+        <path d="M13 7V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2" stroke="currentColor" stroke-width="1.6"/>
+      </svg>
+      <svg class="icon icon-check" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+  <p class="status" id="status"></p>
+
+</div>
+
+<canvas id="sampler" width="72" height="72" style="display:none"></canvas>
+
+<script src="script.js"></script>
+</body>
+</html>
+
+<meta charset="UTF-8" /><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Prism — sort emoji by color</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Emoji spectrum sorter</p>
+  <h1>Prism</h1>
+  <p class="sub">Paste any emoji. Each one gets rendered, its actual pixel color measured, and the set reordered red&nbsp;→&nbsp;violet — like light through glass.</p>
+
+  <div class="prism-row" aria-hidden="true">
+    <svg viewBox="0 0 900 96" preserveAspectRatio="none">
+      <polygon points="0,48 120,20 120,76" fill="var(--glass)" stroke="var(--glass-line)" stroke-width="1.5"/>
+      <line x1="0" y1="48" x2="118" y2="48" stroke="#fff" stroke-width="3"/>
+      <line x1="0" y1="48" x2="118" y2="48" stroke="#d8dade" stroke-width="1"/>
+      <g stroke-width="2.4" stroke-linecap="round" opacity="0.9">
+        <line x1="120" y1="44" x2="900" y2="6"  stroke="var(--red)"/>
+        <line x1="120" y1="45" x2="900" y2="18" stroke="var(--orange)"/>
+        <line x1="120" y1="46" x2="900" y2="30" stroke="var(--yellow)"/>
+        <line x1="120" y1="47" x2="900" y2="46" stroke="var(--green)"/>
+        <line x1="120" y1="48" x2="900" y2="62" stroke="var(--teal)"/>
+        <line x1="120" y1="49" x2="900" y2="76" stroke="var(--blue)"/>
+        <line x1="120" y1="50" x2="900" y2="88" stroke="var(--indigo)"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="field">
+    <label class="field-label" for="emoji-input">Your emoji</label>
+    <textarea id="emoji-input" placeholder="🍎 🍊 🍋 🍏 🫐 🍇 🍓 ⚫ ⚪ 🔴 🟠 🟡 🟢 🔵 🟣" autofocus></textarea>
+  </div>
+  <p class="hint">Renders each character with your system's color emoji font, so results depend on <b>your device</b> — the same emoji can render slightly differently on iOS, Android, or desktop.</p>
+
+  <div class="section-label">
+    <span>Sorted by hue</span>
+    <span class="count" id="count-label">0 emoji</span>
+  </div>
+
+  <div class="track-outer">
+    <div class="spectrum-key" aria-hidden="true"></div>
+    <div class="track" id="track"></div>
+  </div>
+
+  <div class="neutral-shelf" id="neutral-shelf">
+    <span class="shelf-label">No strong color</span>
+  </div>
+
+  <div class="section-label"><span>Sequence</span></div>
+  <div class="sequence">
+    <div class="seq-text empty" id="seq-text">nothing sorted yet</div>
+    <button class="copy-icon-btn" id="copy-btn" disabled aria-label="Copy sequence" title="Copy">
+      <svg class="icon icon-copy" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="7" y="7" width="10" height="10" rx="2" stroke="currentColor" stroke-width="1.6"/>
+        <path d="M13 7V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2" stroke="currentColor" stroke-width="1.6"/>
+      </svg>
+      <svg class="icon icon-check" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+  <p class="status" id="status"></p>
+
+</div>
+
+<canvas id="sampler" width="72" height="72" style="display:none"></canvas>
+
+<script src="script.js"></script>
+</body>
+</html>
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Prism — sort emoji by color</title>
 <link rel="stylesheet" href="style.css">
